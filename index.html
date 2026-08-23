@@ -7,7 +7,107 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<style>
+/* ===== Tokens ===== */
+:root {
+  --navy:    #0F1B2D;
+  --navy-2:  #16273D;
+  --line:    #3A5068;
+  --amber:   #FFB627;
+  --teal:    #5C8AA0;
+  --ink:     #E9EEF2;
+  --ink-dim: #9FB1C2;
+  --font-display: 'JetBrains Mono', monospace;
+  --font-body: 'Inter', sans-serif;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--navy);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  position: relative;
+}
+.grid-overlay {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+a { color: var(--amber); }
+a:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+
+/* ===== Title block (static header — rarely needs editing) ===== */
+.titleblock {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+  max-width: 900px; margin: 48px auto 0; padding: 26px 30px;
+  border: 1px solid var(--line); background: var(--navy-2);
+}
+.titleblock__mark svg { display: block; }
+.eyebrow {
+  font-family: var(--font-display); font-size: 0.7rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--teal); margin: 0 0 6px;
+}
+h1 {
+  font-family: var(--font-display); font-size: clamp(1.6rem, 4vw, 2.3rem);
+  font-weight: 700; margin: 0 0 4px; letter-spacing: -0.01em;
+}
+.subhead { margin: 0; color: var(--ink-dim); font-size: 0.95rem; }
+.titleblock__meta {
+  display: flex; gap: 20px; margin: 0 0 0 auto;
+  border-left: 1px solid var(--line); padding-left: 20px;
+}
+.titleblock__meta dt {
+  font-family: var(--font-display); font-size: 0.62rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--ink-dim); margin: 0 0 3px;
+}
+.titleblock__meta dd { margin: 0; font-family: var(--font-display); font-size: 0.82rem; }
+
+/* ===== Log content (rendered FROM readme.org) ===== */
+main {
+  position: relative; z-index: 1;
+  max-width: 900px; margin: 0 auto; padding: 40px 30px 80px;
+}
+#log-content .org-h1 {
+  font-family: var(--font-display); font-size: 1.5rem; color: var(--amber);
+  border-bottom: 1px solid var(--line); padding-bottom: 10px; margin: 44px 0 18px;
+}
+#log-content .org-h1:first-child { margin-top: 0; }
+#log-content .org-h2 {
+  font-family: var(--font-display); font-size: 1.15rem; color: var(--ink);
+  margin: 30px 0 12px;
+}
+#log-content .org-h3 {
+  font-family: var(--font-display); font-size: 0.95rem; color: var(--teal);
+  margin: 22px 0 8px;
+}
+#log-content p { color: var(--ink-dim); margin: 0 0 14px; max-width: 68ch; }
+#log-content ul.org-list { margin: 0 0 16px; padding-left: 22px; color: var(--ink-dim); }
+#log-content li { margin-bottom: 6px; }
+#log-content .org-check { list-style: none; margin-left: -22px; }
+#log-content .org-check input { margin-right: 8px; }
+#log-content code {
+  font-family: var(--font-display); background: rgba(255,255,255,0.06);
+  padding: 0.1em 0.4em; font-size: 0.88em; color: var(--ink);
+}
+.kw { font-family: var(--font-display); font-size: 0.72rem; padding: 1px 6px; border-radius: 3px; }
+.kw-todo { background: rgba(255,182,39,0.15); color: var(--amber); }
+.kw-done { background: rgba(92,138,160,0.2); color: var(--teal); }
+.load-msg { color: var(--ink-dim); font-family: var(--font-display); font-size: 0.85rem; }
+
+footer {
+  position: relative; z-index: 1; max-width: 900px; margin: 0 auto;
+  padding: 20px 30px 48px; border-top: 1px solid var(--line);
+  color: var(--ink-dim); font-size: 0.8rem;
+}
+@media (max-width: 640px) {
+  .titleblock { flex-direction: column; align-items: flex-start; }
+  .titleblock__meta { margin-left: 0; border-left: none; border-top: 1px solid var(--line); padding-left: 0; padding-top: 14px; width: 100%; }
+}
+</style>
 </head>
 <body>
 
@@ -15,7 +115,7 @@
 
 <header class="titleblock">
   <div class="titleblock__mark" aria-hidden="true">
-    <svg viewBox="0 0 60 60" width="44" height="44">
+    <svg viewBox="0 0 60 60" width="40" height="40">
       <circle cx="30" cy="30" r="27" fill="none" stroke="var(--amber)" stroke-width="2"/>
       <circle cx="30" cy="30" r="6" fill="var(--amber)"/>
       <line x1="30" y1="3" x2="30" y2="15" stroke="var(--amber)" stroke-width="2"/>
@@ -24,81 +124,96 @@
       <line x1="45" y1="30" x2="57" y2="30" stroke="var(--amber)" stroke-width="2"/>
     </svg>
   </div>
-
-  <div class="titleblock__main">
+  <div>
     <p class="eyebrow">Build Log &amp; Records</p>
     <h1>Ayaan Miah</h1>
     <p class="subhead">Robotics — Design, Code, Competition</p>
   </div>
-
   <dl class="titleblock__meta">
-    <div><dt>Sheet</dt><dd>001</dd></div>
-    <div><dt>Rev</dt><dd id="rev-date">—</dd></div>
-    <div><dt>Status</dt><dd class="status status--active">Active</dd></div>
+    <div><dt>Source</dt><dd>readme.org</dd></div>
+    <div><dt>Status</dt><dd style="color:var(--amber)">● Live</dd></div>
   </dl>
 </header>
 
-<nav class="tabs" aria-label="Site sections">
-  <a class="tabs__item" href="readme.org">Current Log</a>
-  <a class="tabs__item" href="seasons/">Seasons</a>
-  <a class="tabs__item" href="code/">Code</a>
-  <a class="tabs__item" href="https://github.com/Ayuu2610" target="_blank" rel="noopener">GitHub</a>
-</nav>
-
 <main>
-
-  <section class="intro">
-    <span class="section-label">01 — Overview</span>
-    <p>
-      This site tracks every build, every competition, and every line of code
-      from middle school through high school. Think of it as a lab notebook —
-      messy in progress, organized in hindsight. Entries move from the
-      <a href="readme.org">active log</a> into a dedicated season folder once
-      a competition wraps.
-    </p>
-  </section>
-
-  <section class="seasons">
-    <span class="section-label">02 — Seasons</span>
-    <div class="card-grid">
-
-      <article class="spec-card">
-        <div class="spec-card__head">
-          <span class="spec-card__id">S-01</span>
-          <span class="status status--active">Active</span>
-        </div>
-        <h3>Current Season</h3>
-        <p>Add a season folder under <code>/seasons/</code> and link it here once details are set.</p>
-        <a class="spec-card__link" href="seasons/">Open folder →</a>
-      </article>
-
-      <article class="spec-card spec-card--placeholder">
-        <div class="spec-card__head">
-          <span class="spec-card__id">S-02</span>
-          <span class="status status--pending">Planned</span>
-        </div>
-        <h3>Next Season</h3>
-        <p>Reserved. Duplicate the season template when the next competition is scheduled.</p>
-      </article>
-
-    </div>
-  </section>
-
-  <section class="log-preview">
-    <span class="section-label">03 — Log</span>
-    <p>The running build log lives in Org format for fast note-taking.</p>
-    <a class="btn" href="readme.org">View readme.org →</a>
-  </section>
-
+  <div id="log-content">
+    <p class="load-msg">Loading readme.org …</p>
+  </div>
 </main>
 
 <footer>
-  <p>Maintained on GitHub — updated by hand, one commit at a time.</p>
+  <p>Everything above is generated from <code>readme.org</code>. Edit that file to update the site — this page never needs to change.</p>
 </footer>
 
 <script>
-  document.getElementById('rev-date').textContent =
-    new Date().toISOString().slice(0,10);
+function inlineFormat(text) {
+  return text
+    .replace(/~([^~]+)~/g, '<code>$1</code>')
+    .replace(/=([^=]+)=/g, '<code>$1</code>')
+    .replace(/\*([^*]+)\*/g, '<strong>$1</strong>')
+    .replace(/\/([^/]+)\//g, '<em>$1</em>');
+}
+
+function parseOrg(text) {
+  const lines = text.split('\n');
+  let html = '';
+  let inList = false;
+
+  for (let raw of lines) {
+    const line = raw.replace(/\r$/, '');
+
+    if (/^#\+/.test(line)) continue; // skip #+TITLE:, #+AUTHOR:, etc.
+
+    const heading = line.match(/^(\*+)\s+(.*)/);
+    if (heading) {
+      if (inList) { html += '</ul>'; inList = false; }
+      const level = Math.min(heading[1].length, 3);
+      let content = heading[2]
+        .replace(/^(TODO)\s+/, '<span class="kw kw-todo">TODO</span> ')
+        .replace(/^(DONE)\s+/, '<span class="kw kw-done">DONE</span> ');
+      html += `<h${level === 1 ? 1 : level + 1} class="org-h${level}">${inlineFormat(content)}</h${level === 1 ? 1 : level + 1}>`;
+      continue;
+    }
+
+    const checkbox = line.match(/^\s*-\s+\[( |X)\]\s+(.*)/);
+    if (checkbox) {
+      if (!inList) { html += '<ul class="org-list">'; inList = true; }
+      const checked = checkbox[1] === 'X' ? 'checked' : '';
+      html += `<li class="org-check"><input type="checkbox" disabled ${checked}> ${inlineFormat(checkbox[2])}</li>`;
+      continue;
+    }
+
+    const bullet = line.match(/^\s*-\s+(.*)/);
+    if (bullet) {
+      if (!inList) { html += '<ul class="org-list">'; inList = true; }
+      html += `<li>${inlineFormat(bullet[1])}</li>`;
+      continue;
+    }
+
+    if (line.trim() === '') {
+      if (inList) { html += '</ul>'; inList = false; }
+      continue;
+    }
+
+    if (inList) { html += '</ul>'; inList = false; }
+    html += `<p>${inlineFormat(line)}</p>`;
+  }
+  if (inList) html += '</ul>';
+  return html;
+}
+
+fetch('readme.org')
+  .then(r => {
+    if (!r.ok) throw new Error('File not found');
+    return r.text();
+  })
+  .then(text => {
+    document.getElementById('log-content').innerHTML = parseOrg(text);
+  })
+  .catch(() => {
+    document.getElementById('log-content').innerHTML =
+      '<p class="load-msg">Could not load readme.org. Make sure it is in the same folder as index.html and that you are viewing this through a live server or the published GitHub Pages URL (not by double-clicking the file).</p>';
+  });
 </script>
 
 </body>
