@@ -3,7 +3,7 @@
 #+STARTUP: overview
 
 * About
-Hello! I am Ayaan Miah and today I made a website to jonalize what I have been working on and for the world to see it.
+Hello! I am Ayaan Miah. I am a fifth grader in Hickory grove elementry school in peoria, IL. On August 23, 2026 I made a website to jonalize what I have been working on and for the world to see my skills in robotices and engineering.
 
 
 /Disclaimer/: This is a personal log. It is not affiliated with any school, organization, or competition. All content is my own work and opinions. Thanks to numerous AI tools for helping me write and edit this log.
