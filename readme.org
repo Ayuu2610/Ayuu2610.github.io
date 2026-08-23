@@ -35,5 +35,5 @@ stays short and current.
 * Notes
 Use TODO / DONE keywords freely, e.g.:
 ** TODO Calibrate gyro sensor
-** DONE Wire up motor controller
+** TODO Wire up motor controller
 
