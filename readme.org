@@ -3,10 +3,13 @@
 #+STARTUP: overview
 
 * About
-This is the running log for all robotics work — builds, code, competition
+Hello! This is the running log for all robotics work — builds, code, competition
 notes, and lessons learned. Entries are dated. Once a season wraps, its
 entries get moved into =/seasons/<season-name>/notes.org= and this file
-stays short and current.
+stays short and current.  
+
+/Disclaimer/: This is a personal log. It is not affiliated with any school, organization, or competition. All content is my own work and opinions.
+Thanks to numerous AI tools for helping me write and edit this log.
 
 * 2026
 
