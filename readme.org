@@ -1,0 +1,36 @@
+#+TITLE: Ayaan Miah — Robotics Build Log
+#+AUTHOR: Ayaan Miah
+#+STARTUP: overview
+
+* About
+This is the running log for all robotics work — builds, code, competition
+notes, and lessons learned. Entries are dated. Once a season wraps, its
+entries get moved into =/seasons/<season-name>/notes.org= and this file
+stays short and current.
+
+* 2026
+
+** <2026-08-23 Sun> Site setup
+- Set up Ayuu2610.github.io with custom homepage (no more Jekyll default theme)
+- Folder structure: seasons/, code/snippets/, assets/images/, logs/
+- Added .gitignore for Python + C/C++ + Arduino/PlatformIO builds
+- Next: pick current season, create its folder under /seasons/
+
+** <2026-08-XX> [Example entry — replace me]
+*** What I worked on
+- 
+
+*** What worked
+- 
+
+*** What didn't work / bugs
+- 
+
+*** Next steps
+- [ ] 
+- [ ] 
+
+* Notes
+Use TODO / DONE keywords freely, e.g.:
+** TODO Calibrate gyro sensor
+** DONE Wire up motor controller

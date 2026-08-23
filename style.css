@@ -1,0 +1,294 @@
+/* ============================================
+   Design tokens
+   ============================================ */
+:root {
+  --navy:      #0F1B2D;
+  --navy-2:    #16273D;
+  --paper:     #F2F0E9;
+  --line:      #3A5068;
+  --amber:     #FFB627;
+  --teal:      #5C8AA0;
+  --ink:       #E9EEF2;
+  --ink-dim:   #9FB1C2;
+
+  --font-display: 'JetBrains Mono', monospace;
+  --font-body: 'Inter', sans-serif;
+
+  --radius: 2px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--navy);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  position: relative;
+}
+
+/* Blueprint graph-paper backdrop */
+.grid-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+a { color: var(--amber); text-decoration: none; }
+a:hover { text-decoration: underline; }
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+}
+
+code {
+  font-family: var(--font-display);
+  background: rgba(255,255,255,0.06);
+  padding: 0.1em 0.4em;
+  border-radius: var(--radius);
+  font-size: 0.9em;
+}
+
+/* ============================================
+   Title block (hero) — styled like a drawing's
+   title block: mark, name, meta fields
+   ============================================ */
+.titleblock {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  max-width: 980px;
+  margin: 56px auto 0;
+  padding: 28px 32px;
+  border: 1px solid var(--line);
+  background: var(--navy-2);
+}
+
+.titleblock__mark { flex-shrink: 0; }
+
+.titleblock__main { flex: 1; min-width: 0; }
+
+.eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin: 0 0 6px;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 700;
+  margin: 0 0 4px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.subhead {
+  margin: 0;
+  color: var(--ink-dim);
+  font-size: 1rem;
+}
+
+.titleblock__meta {
+  display: flex;
+  gap: 22px;
+  margin: 0;
+  border-left: 1px solid var(--line);
+  padding-left: 22px;
+  flex-shrink: 0;
+}
+
+.titleblock__meta > div { text-align: left; }
+
+.titleblock__meta dt {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin: 0 0 3px;
+}
+
+.titleblock__meta dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+}
+
+.status {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-family: var(--font-display);
+}
+.status--active { background: rgba(255,182,39,0.15); color: var(--amber); }
+.status--pending { background: rgba(159,177,194,0.15); color: var(--ink-dim); }
+
+/* ============================================
+   Nav tabs
+   ============================================ */
+.tabs {
+  position: relative;
+  z-index: 1;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--line);
+}
+
+.tabs__item {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  color: var(--ink-dim);
+  padding: 14px 16px;
+  border-bottom: 2px solid transparent;
+}
+
+.tabs__item:hover {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom-color: var(--teal);
+}
+
+/* ============================================
+   Main content
+   ============================================ */
+main {
+  position: relative;
+  z-index: 1;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 48px 32px 24px;
+}
+
+section { margin-bottom: 56px; }
+
+.section-label {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 14px;
+}
+
+.intro p, .log-preview p {
+  max-width: 62ch;
+  color: var(--ink-dim);
+}
+
+/* Spec cards */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.spec-card {
+  border: 1px solid var(--line);
+  background: var(--navy-2);
+  padding: 20px;
+  transition: border-color 0.15s ease;
+}
+
+.spec-card:hover { border-color: var(--teal); }
+
+.spec-card--placeholder { opacity: 0.6; }
+
+.spec-card__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.spec-card__id {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  color: var(--ink-dim);
+}
+
+.spec-card h3 {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+}
+
+.spec-card p {
+  margin: 0 0 12px;
+  color: var(--ink-dim);
+  font-size: 0.9rem;
+}
+
+.spec-card__link {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+}
+
+/* Button */
+.btn {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  border: 1px solid var(--amber);
+  color: var(--amber);
+  padding: 10px 18px;
+  margin-top: 8px;
+}
+.btn:hover { background: var(--amber); color: var(--navy); text-decoration: none; }
+
+/* ============================================
+   Footer
+   ============================================ */
+footer {
+  position: relative;
+  z-index: 1;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 24px 32px 48px;
+  border-top: 1px solid var(--line);
+  color: var(--ink-dim);
+  font-size: 0.82rem;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+@media (max-width: 640px) {
+  .titleblock {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .titleblock__meta {
+    border-left: none;
+    border-top: 1px solid var(--line);
+    padding-left: 0;
+    padding-top: 14px;
+    width: 100%;
+  }
+  .tabs { overflow-x: auto; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .spec-card { transition: none; }
+}
