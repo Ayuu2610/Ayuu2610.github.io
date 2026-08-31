@@ -19,17 +19,17 @@ Hello! I am Ayaan Miah. I am a fifth grader in Hickory grove elementry school in
 ** <2026-08-30 Sunday> [Assembling the robot]
 *** What I worked on
 - I work on assembling the robot
-- 
+
 
 *** What worked
-- 
+- Accembling the robot's parts and making sure they are all in good condition.
 
 *** What didn't work / bugs
 - 
 
 *** Next steps
-- [ ] 
-- [ ] 
+- [ finish assembling the robot ] 
+- [ see if I can move the robot with the remote control] 
 
 * Notes
 Use TODO / DONE keywords freely, e.g.:
