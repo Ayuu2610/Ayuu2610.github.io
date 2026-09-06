@@ -31,6 +31,20 @@ Hello! I am Ayaan Miah. I am a fifth grader in Hickory grove elementry school in
 - [ finish assembling the robot ] 
 - [ see if I can move the robot with the remote control] 
 
+** <2026-09-06 sunday> [Finishing assembling the robot and charging the batery]
+*** what I worked on
+- Finishing assembling the robot and charging the battery.
+
+*** What worked
+- Finishing assembling the robot and charging the battery.
+
+*** What didn't work / bugs
+-
+
+*** Next steps
+- [ First test run for the robot.]
+- [ Install the ElegooKit App.]
+
 * Notes
 Use TODO / DONE keywords freely, e.g.:
 ** TODO Calibrate gyro sensor
