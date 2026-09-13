@@ -1,7 +1,0 @@
-#+TITLE: Bradley Univeristy - STEM Log  
-#+AUTHOR: Ayaan Miah
-
-* Fall 2026 - Coding Lab
-** <2026-09-12 Saturday> [First coding lab session]
-
-   - 
