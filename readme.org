@@ -3,10 +3,12 @@
 #+STARTUP: overview
 
 * About
-Hello! I am Ayaan Miah. I am a fifth grader in Hickory grove elementry school in peoria, IL. On August 23, 2026 I made a website to jonalize what I have been working on and for the world to see my skills in robotices and engineering.
+Hello! I am Ayaan Miah. I am a fifth grader in Hickory grove elementry school in peoria, IL. On August 23, 2026 I made a website to journalize what I have been working on and for the world to see my skills in robotices and engineering.
 
 
 /Disclaimer/: This is a personal log. It is not affiliated with any school, organization, or competition. All content is my own work and opinions. Thanks to numerous AI tools for helping me write and edit this log.
+
+[[DAPCEP.org][Click here to see my STEM log for Fall 2026 coding lab]]
 
 * 2026
 
@@ -44,6 +46,20 @@ Hello! I am Ayaan Miah. I am a fifth grader in Hickory grove elementry school in
 *** Next steps
 - [ First test run for the robot.]
 - [ Install the ElegooKit App.]
+
+** <2026-09-13 sunday> [First test run with the robot, and trying to fix the robot's 2 floating wheels]
+*** What I worked on
+- First test run with the robot
+- Trying to fix the robot's 2 floating wheels
+
+*** What worked
+- First test run with the robot
+
+*** What didn't work / bugs
+- The robot's 2 floating wheels are not working properly.
+
+*** Next steps
+- [ Try to fix the robot's 2 floating wheels.]
 
 * Notes
 Use TODO / DONE keywords freely, e.g.:
