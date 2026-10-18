@@ -8,7 +8,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* ===== Tokens ===== */
 :root {
   --navy:    #0F1B2D;
   --navy-2:  #16273D;
@@ -38,8 +37,9 @@ body {
 }
 a { color: var(--amber); }
 a:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+html { scroll-behavior: smooth; }
 
-/* ===== Title block (static header — rarely needs editing) ===== */
+/* Title block */
 .titleblock {
   position: relative; z-index: 1;
   display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
@@ -66,25 +66,58 @@ h1 {
 }
 .titleblock__meta dd { margin: 0; font-family: var(--font-display); font-size: 0.82rem; }
 
-/* ===== Log content (rendered FROM readme.org) ===== */
 main {
   position: relative; z-index: 1;
   max-width: 900px; margin: 0 auto; padding: 40px 30px 80px;
 }
+
+/* ===== Table of contents (auto-generated) ===== */
+.toc {
+  border: 1px solid var(--line);
+  background: var(--navy-2);
+  padding: 20px 24px;
+  margin: 0 0 40px;
+}
+.toc-title {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin: 0 0 12px;
+}
+.toc ul { list-style: none; margin: 0; padding: 0; }
+.toc li { margin: 0; }
+.toc a {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  color: var(--ink-dim);
+  text-decoration: none;
+  padding: 5px 0;
+  border-bottom: 1px dotted transparent;
+}
+.toc a:hover { color: var(--amber); border-bottom-color: var(--amber); }
+.toc .toc-lvl-1 > a { color: var(--ink); font-weight: 600; margin-top: 6px; }
+.toc .toc-lvl-2 > a { padding-left: 18px; }
+.toc .toc-lvl-3 > a { padding-left: 36px; font-size: 0.8rem; }
+
+/* ===== Rendered log content ===== */
 #log-content .org-h1 {
   font-family: var(--font-display); font-size: 1.5rem; color: var(--amber);
   border-bottom: 1px solid var(--line); padding-bottom: 10px; margin: 44px 0 18px;
+  scroll-margin-top: 20px;
 }
 #log-content .org-h1:first-child { margin-top: 0; }
 #log-content .org-h2 {
   font-family: var(--font-display); font-size: 1.15rem; color: var(--ink);
-  margin: 30px 0 12px;
+  margin: 30px 0 12px; scroll-margin-top: 20px;
 }
 #log-content .org-h3 {
   font-family: var(--font-display); font-size: 0.95rem; color: var(--teal);
-  margin: 22px 0 8px;
+  margin: 22px 0 8px; scroll-margin-top: 20px;
 }
-#log-content p { color: var(--ink-dim); margin: 0 0 14px; max-width: 68ch; }
+#log-content p { color: var(--ink-dim); margin: 0 0 14px; max-width: 70ch; }
 #log-content ul.org-list { margin: 0 0 16px; padding-left: 22px; color: var(--ink-dim); }
 #log-content li { margin-bottom: 6px; }
 #log-content .org-check { list-style: none; margin-left: -22px; }
@@ -93,6 +126,45 @@ main {
   font-family: var(--font-display); background: rgba(255,255,255,0.06);
   padding: 0.1em 0.4em; font-size: 0.88em; color: var(--ink);
 }
+#log-content pre {
+  font-family: var(--font-display);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--teal);
+  padding: 14px 16px;
+  overflow-x: auto;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  margin: 0 0 18px;
+  white-space: pre;
+}
+#log-content pre code { background: none; padding: 0; }
+#log-content .src-label {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin: 0 0 -10px;
+}
+#log-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 18px;
+  font-size: 0.88rem;
+}
+#log-content th, #log-content td {
+  border: 1px solid var(--line);
+  padding: 7px 10px;
+  text-align: left;
+}
+#log-content th {
+  font-family: var(--font-display);
+  color: var(--amber);
+  background: rgba(255,182,39,0.06);
+}
+#log-content td { color: var(--ink-dim); }
 .kw { font-family: var(--font-display); font-size: 0.72rem; padding: 1px 6px; border-radius: 3px; }
 .kw-todo { background: rgba(255,182,39,0.15); color: var(--amber); }
 .kw-done { background: rgba(92,138,160,0.2); color: var(--teal); }
@@ -107,6 +179,7 @@ footer {
   .titleblock { flex-direction: column; align-items: flex-start; }
   .titleblock__meta { margin-left: 0; border-left: none; border-top: 1px solid var(--line); padding-left: 0; padding-top: 14px; width: 100%; }
 }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 </style>
 </head>
 <body>
@@ -142,64 +215,149 @@ footer {
 </main>
 
 <footer>
-  <p>Everything above is generated from <code>readme.org</code>. Edit that file to update the site — this page never needs to change.</p>
+  <p>Everything above is generated from <code>readme.org</code>, including the table of contents. Edit that file to update the site — this page never needs to change.</p>
 </footer>
 
 <script>
+function escapeHtml(s) {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
 function inlineFormat(text) {
-  return text
+  return escapeHtml(text)
     .replace(/~([^~]+)~/g, '<code>$1</code>')
     .replace(/=([^=]+)=/g, '<code>$1</code>')
     .replace(/\*([^*]+)\*/g, '<strong>$1</strong>')
     .replace(/\/([^/]+)\//g, '<em>$1</em>');
 }
 
+function slugify(text, used) {
+  let base = text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-+|-+$)/g, '') || 'section';
+  let slug = base, n = 2;
+  while (used.has(slug)) { slug = base + '-' + n; n++; }
+  used.add(slug);
+  return slug;
+}
+
+function parseTableRow(line) {
+  return line.replace(/^\s*\|/, '').replace(/\|\s*$/, '').split('|').map(c => c.trim());
+}
+
 function parseOrg(text) {
   const lines = text.split('\n');
   let html = '';
   let inList = false;
+  let i = 0;
+  const headings = [];       // {level, id, text}
+  const usedSlugs = new Set();
 
-  for (let raw of lines) {
-    const line = raw.replace(/\r$/, '');
+  function closeList() { if (inList) { html += '</ul>'; inList = false; } }
 
-    if (/^#\+/.test(line)) continue; // skip #+TITLE:, #+AUTHOR:, etc.
+  while (i < lines.length) {
+    const line = lines[i].replace(/\r$/, '');
 
-    const heading = line.match(/^(\*+)\s+(.*)/);
-    if (heading) {
-      if (inList) { html += '</ul>'; inList = false; }
-      const level = Math.min(heading[1].length, 3);
-      let content = heading[2]
-        .replace(/^(TODO)\s+/, '<span class="kw kw-todo">TODO</span> ')
-        .replace(/^(DONE)\s+/, '<span class="kw kw-done">DONE</span> ');
-      html += `<h${level === 1 ? 1 : level + 1} class="org-h${level}">${inlineFormat(content)}</h${level === 1 ? 1 : level + 1}>`;
+    // Metadata lines
+    if (/^#\+/.test(line) && !/^#\+begin_/i.test(line)) { i++; continue; }
+
+    // Source / example blocks
+    const blockStart = line.match(/^#\+begin_(src|example)\s*(\S*)/i);
+    if (blockStart) {
+      closeList();
+      const kind = blockStart[1].toLowerCase();
+      const lang = blockStart[2] || '';
+      const endRe = new RegExp('^#\\+end_' + kind, 'i');
+      const buf = [];
+      i++;
+      while (i < lines.length && !endRe.test(lines[i])) { buf.push(lines[i]); i++; }
+      i++; // skip end line
+      const label = kind === 'src' && lang ? `<span class="src-label">${escapeHtml(lang)}</span>` : '';
+      html += `${label}<pre class="org-${kind}"><code>${escapeHtml(buf.join('\n'))}</code></pre>`;
       continue;
     }
 
+    // Tables
+    if (/^\s*\|/.test(line)) {
+      closeList();
+      const rows = [];
+      while (i < lines.length && /^\s*\|/.test(lines[i])) {
+        if (!/^\s*\|[-+\s|]*\|?\s*$/.test(lines[i])) rows.push(parseTableRow(lines[i]));
+        i++;
+      }
+      if (rows.length) {
+        html += '<table><thead><tr>' +
+          rows[0].map(c => `<th>${inlineFormat(c)}</th>`).join('') +
+          '</tr></thead><tbody>' +
+          rows.slice(1).map(r => '<tr>' + r.map(c => `<td>${inlineFormat(c)}</td>`).join('') + '</tr>').join('') +
+          '</tbody></table>';
+      }
+      continue;
+    }
+
+    // Headings
+    const heading = line.match(/^(\*+)\s+(.*)/);
+    if (heading) {
+      closeList();
+      const level = Math.min(heading[1].length, 3);
+      let raw = heading[2];
+      let isTodo = /^TODO\s+/.test(raw);
+      let isDone = /^DONE\s+/.test(raw);
+      const plain = raw.replace(/^(TODO|DONE)\s+/, '');
+      const id = slugify(plain, usedSlugs);
+      headings.push({ level, id, text: plain });
+      let content = (isTodo ? '<span class="kw kw-todo">TODO</span> ' : '') +
+                    (isDone ? '<span class="kw kw-done">DONE</span> ' : '') +
+                    inlineFormat(plain);
+      const tag = level === 1 ? 1 : level + 1;
+      html += `<h${tag} id="${id}" class="org-h${level}">${content}</h${tag}>`;
+      i++;
+      continue;
+    }
+
+    // Checkbox list item
     const checkbox = line.match(/^\s*-\s+\[( |X)\]\s+(.*)/);
     if (checkbox) {
       if (!inList) { html += '<ul class="org-list">'; inList = true; }
       const checked = checkbox[1] === 'X' ? 'checked' : '';
       html += `<li class="org-check"><input type="checkbox" disabled ${checked}> ${inlineFormat(checkbox[2])}</li>`;
+      i++;
       continue;
     }
 
+    // Bullet list item
     const bullet = line.match(/^\s*-\s+(.*)/);
     if (bullet) {
       if (!inList) { html += '<ul class="org-list">'; inList = true; }
       html += `<li>${inlineFormat(bullet[1])}</li>`;
+      i++;
       continue;
     }
 
-    if (line.trim() === '') {
-      if (inList) { html += '</ul>'; inList = false; }
-      continue;
-    }
+    // Blank line
+    if (line.trim() === '') { closeList(); i++; continue; }
 
-    if (inList) { html += '</ul>'; inList = false; }
+    // Paragraph
+    closeList();
     html += `<p>${inlineFormat(line)}</p>`;
+    i++;
   }
-  if (inList) html += '</ul>';
-  return html;
+  closeList();
+
+  // Build table of contents (levels 1–2 only, to stay scannable)
+  let toc = '';
+  const tocHeadings = headings.filter(h => h.level <= 2);
+  if (tocHeadings.length > 1) {
+    toc = '<nav class="toc" aria-label="Table of contents"><p class="toc-title">Contents</p><ul>' +
+      tocHeadings.map(h => `<li class="toc-lvl-${h.level}"><a href="#${h.id}">${inlineFormat(h.text)}</a></li>`).join('') +
+      '</ul></nav>';
+  }
+
+  return toc + html;
 }
 
 fetch('readme.org')
