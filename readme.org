@@ -61,12 +61,14 @@ Hello! I am Ayaan Miah. I am a fifth grader in Hickory grove elementry school in
 *** Next steps
 - [ Try to fix the robot's 2 floating wheels.]
 
+
+** <2026-10-18 Sunday>
+[[https://www.elegoo.com/download][download]]
+
 * Notes
 Use TODO / DONE keywords freely, e.g.:
 ** TODO Calibrate gyro sensor
 ** TODO Wire up motor controller
 
 
-** <2026-10-18 Sunday>
-[[https://www.elegoo.com/download][download]]
 
