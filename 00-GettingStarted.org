@@ -1,0 +1,200 @@
+#+TITLE: Programming the ELEGOO Smart Robot Car V4.0 with VS Code + PlatformIO
+#+STARTUP: overview
+#+OPTIONS: toc:2 num:t
+
+* Overview
+The car's brain is an Arduino UNO R3 (ATmega328P). The IO expansion board
+(shield) sits on top of it and routes the UNO pins to the motors, servo,
+ultrasonic sensor, line tracker, RGB LED, and camera module. PlatformIO
+programs the UNO exactly like the Arduino IDE does, just with a project
+structure and a config file (=platformio.ini=).
+
+Plan:
+1. Install tools
+2. Create a PlatformIO project for the UNO
+3. Upload a "hello" program (Serial + onboard LED)
+4. Upload a motor test (wheels off the ground)
+5. Optional: port ELEGOO's downloaded sketches into PlatformIO
+
+* Step 1 — Install the tools
+- [ ] Install VS Code (already done).
+- [ ] Extensions panel (=Ctrl+Shift+X=) → search *PlatformIO IDE* → Install.
+- [ ] Wait for PlatformIO Core to finish installing (status bar), then
+      restart VS Code. An ant/alien icon appears on the left sidebar.
+- [ ] USB driver: many ELEGOO UNO boards use a CH340 USB-serial chip.
+      If no serial port appears when the board is plugged in, install the
+      CH340 driver (it is also included in ELEGOO's download package).
+
+* Step 2 — Create the project
+- [ ] PlatformIO icon → *PIO Home* → *New Project*.
+- [ ] Fill in:
+  | Field     | Value                  |
+  |-----------+------------------------|
+  | Name      | =RobotCar_Hello=       |
+  | Board     | =Arduino Uno=          |
+  | Framework | =Arduino=              |
+- [ ] Click *Finish*. PlatformIO creates:
+#+begin_example
+RobotCar_Hello/
+├── include/
+├── lib/
+├── src/
+│   └── main.cpp      <- your program goes here
+├── test/
+└── platformio.ini    <- board + settings
+#+end_example
+
+** Edit platformio.ini
+Replace its contents with:
+#+begin_src ini
+[env:uno]
+platform  = atmelavr
+board     = uno
+framework = arduino
+
+; Serial Monitor speed must match Serial.begin(...)
+monitor_speed = 9600
+
+; Libraries the ELEGOO car uses (downloaded automatically on build)
+lib_deps =
+    fastled/FastLED
+#+end_src
+
+* Step 3 — First program: Hello Robot
+Key difference from the Arduino IDE: the file is =main.cpp=, not =.ino=, so
+it *must* start with =#include <Arduino.h>=, and any function you call must be
+declared above where it is used.
+
+Put this in =src/main.cpp=:
+#+begin_src cpp
+#include <Arduino.h>
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(LED_BUILTIN, OUTPUT);   // UNO onboard LED (pin 13)
+  Serial.println("Hello from the robot car!");
+}
+
+void loop() {
+  digitalWrite(LED_BUILTIN, HIGH);
+  Serial.println("LED ON");
+  delay(500);
+  digitalWrite(LED_BUILTIN, LOW);
+  Serial.println("LED OFF");
+  delay(500);
+}
+#+end_src
+
+** Build, upload, monitor
+Use the buttons on the blue status bar at the bottom of VS Code:
+| Button | Action         | Shortcut       |
+|--------+----------------+----------------|
+| ✓      | Build          | =Ctrl+Alt+B=   |
+| →      | Upload         | =Ctrl+Alt+U=   |
+| 🔌     | Serial Monitor | (status bar)   |
+
+- [ ] Connect the UNO to the PC with the USB cable.
+- [ ] *Before uploading:* the camera module talks to the UNO over the same
+      serial pins (D0/D1) used for uploading. If the expansion board has a
+      mode switch near the camera connector, set it to the upload position;
+      otherwise, if the upload fails, unplug the camera cable during upload.
+- [ ] Click ✓ (Build). Expect =SUCCESS=.
+- [ ] Click → (Upload). PlatformIO auto-detects the port.
+- [ ] Click 🔌 (Serial Monitor). You should see "LED ON / LED OFF".
+- [ ] Set the switch back (or reconnect the camera) afterwards.
+
+Terminal equivalent (PlatformIO terminal):
+#+begin_src shell
+pio run                 # build
+pio run -t upload       # upload
+pio device monitor      # serial monitor
+#+end_src
+
+* Step 4 — Second program: make the wheels turn
+*Safety:* put the car on a box so the wheels are off the table. Turn the
+battery switch ON — USB alone cannot power the motors.
+
+** Check which motor driver your board has
+ELEGOO has shipped the V4.0 expansion board with different motor-driver
+chips (e.g. TB6612 or DRV8835). Read the chip label on the board, then open
+the matching folder in ELEGOO's download and confirm the pins in
+=DeviceDriverSet_xxx0.h=. The code below follows the TB6612 version.
+
+| Signal                | UNO pin |
+|-----------------------+---------|
+| Motor A (right) PWM   | 5       |
+| Motor B (left) PWM    | 6       |
+| Motor A direction     | 7       |
+| Motor B direction     | 8       |
+| Driver standby (STBY) | 3       |
+
+** Code (=src/main.cpp=)
+#+begin_src cpp
+#include <Arduino.h>
+
+const int PWMA = 5;   // right motor speed
+const int PWMB = 6;   // left motor speed
+const int AIN1 = 7;   // right motor direction
+const int BIN1 = 8;   // left motor direction
+const int STBY = 3;   // motor driver enable
+
+void drive(bool forward, int speed) {   // speed: 0..255
+  digitalWrite(STBY, HIGH);
+  digitalWrite(AIN1, forward ? HIGH : LOW);
+  digitalWrite(BIN1, forward ? HIGH : LOW);
+  analogWrite(PWMA, speed);
+  analogWrite(PWMB, speed);
+}
+
+void stopCar() {
+  analogWrite(PWMA, 0);
+  analogWrite(PWMB, 0);
+  digitalWrite(STBY, LOW);
+}
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(PWMA, OUTPUT); pinMode(PWMB, OUTPUT);
+  pinMode(AIN1, OUTPUT); pinMode(BIN1, OUTPUT);
+  pinMode(STBY, OUTPUT);
+  stopCar();
+  delay(2000);                 // time to set the car down
+}
+
+void loop() {
+  Serial.println("Forward");  drive(true, 120);  delay(1500);
+  Serial.println("Stop");     stopCar();         delay(1000);
+  Serial.println("Backward"); drive(false, 120); delay(1500);
+  Serial.println("Stop");     stopCar();         delay(2000);
+}
+#+end_src
+
+- [ ] Build → Upload → watch the wheels.
+- [ ] If a wheel spins the wrong way, flip that motor's =HIGH/LOW= logic.
+
+* Step 5 (optional) — Port ELEGOO's downloaded sketches
+ELEGOO's examples are Arduino IDE projects (=.ino= + =.h= + =.cpp=). To use
+one in PlatformIO:
+- [ ] Create a new PlatformIO project (Arduino Uno), as in Step 2.
+- [ ] Copy *all* =.h= and =.cpp= files from the ELEGOO sketch folder into =src/=.
+- [ ] Rename the =.ino= file to =main.cpp= and add =#include <Arduino.h>= at the top.
+- [ ] If the build says a function "was not declared in this scope", add a
+      prototype for it above =setup()= (the Arduino IDE did this silently).
+- [ ] Add the libraries it uses to =lib_deps= in =platformio.ini=, or copy
+      the library folders from ELEGOO's download into =lib/= (recommended,
+      so you get the exact versions ELEGOO tested with).
+- [ ] Build → Upload (remember the camera/serial note in Step 3).
+
+* Troubleshooting
+| Symptom                                   | Fix                                                        |
+|-------------------------------------------+------------------------------------------------------------|
+| No port / "could not open port"           | Install CH340 driver; close any other Serial Monitor       |
+| =avrdude: stk500_getsync() not in sync=   | Camera/serial conflict: use upload switch or unplug camera |
+| Garbage text in Serial Monitor            | =monitor_speed= must match =Serial.begin()=                |
+| Wheels don't move, LED/serial OK          | Battery switch ON; check motor-driver pin table            |
+| ='xyz' was not declared in this scope=    | Add =#include <Arduino.h>= or a function prototype         |
+
+* Next ideas for practice
+- [ ] Read the ultrasonic sensor and stop before a wall.
+- [ ] Sweep the servo (pin 10) to "look" left and right.
+- [ ] Control the RGB LED with the FastLED library.
