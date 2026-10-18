@@ -65,6 +65,11 @@ Hello! I am Ayaan Miah. I am a fifth grader in Hickory grove elementry school in
 ** <2026-10-18 Sunday>
 [[https://www.elegoo.com/download][download]]
 
+Getting starting with the ElegooKit App and trying to get the robot to move 
+
+See the getting started page at 
+[[00-GettingStarted.org][Getting Started with the ElegooKit]]
+
 * Notes
 Use TODO / DONE keywords freely, e.g.:
 ** TODO Calibrate gyro sensor
