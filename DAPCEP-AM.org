@@ -3,5 +3,14 @@
 
 * Fall 2026 - Coding Lab
 ** <2026-09-12 Saturday> [First coding lab session]
+-  Today was my first day of coding lab at Bradley University. I was very excited to start learning the parts of computers and coding in this lab.
 
-   - 
+*** Introduction
+- In the introduction, I learned what different parts are in the comuter such as a cpu, gpu, ram, and hard drive, and also learned about hardware for a computer such as a keyboards, and mouses.
+
+
+** <2026-09-19 Saturday> [Second coding lab session]
+- Today was my second day of coding lab at Bradley University.
+
+*** Learning Python
+- Today we started coding with blockly and a google coding site. In blockly  
