@@ -66,3 +66,7 @@ Use TODO / DONE keywords freely, e.g.:
 ** TODO Calibrate gyro sensor
 ** TODO Wire up motor controller
 
+
+** <2026-10-18 Sunday>
+https://www.elegoo.com/download
+
