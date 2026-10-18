@@ -68,5 +68,5 @@ Use TODO / DONE keywords freely, e.g.:
 
 
 ** <2026-10-18 Sunday>
-https:///www.elegoo.com//download
+[[https://www.elegoo.com/download][download]]
 
